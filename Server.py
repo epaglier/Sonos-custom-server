@@ -5,12 +5,15 @@ print "started"
 
 listOfZones = list(soco.discover())
 
+for i in range(len(listOfZones)):
+    print listOfZones[i].name
+
 #Main determines what mode to run in
 def main(argv=sys.argv):
     try:
         if argv[1] == "1": #play next file
             play_next()
-            print "Skipping current song"
+            
         elif argv[1] == "2":
             print ""
     except:
@@ -19,10 +22,14 @@ def main(argv=sys.argv):
 def play_next():
     if len(listOfZones) == 0:
         print "No zones found"
+        return
     else:
-        for (i = 0; i < len(listOfZones); i++):
-            listOfZones[i].next()
-    print "Zones Playing Next"
+        try:
+            for i in range(len(listOfZones)):
+                listOfZones[i].next()
+        except:
+            print "failed"
+    print "Skipped current song on all zones"
         
 
 if __name__=="__main__":
