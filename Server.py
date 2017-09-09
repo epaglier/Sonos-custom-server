@@ -6,38 +6,87 @@ print "started"
 listOfZones = list(soco.discover())
 
 def printZones():
-    for i in range(len(listOfZones)):
-        print listOfZones[i].player_name
+    try:
+        for i in range(len(listOfZones)):
+            print listOfZones[i].player_name
+        return 1
+    except:
+        print "failed"
+        return 0
+    print "Skipped current song on all zones"
 
 #Main determines what mode to run in
 def main(argv=sys.argv):
     print argv[1] #debug
+    if len(listOfZones) == 0:
+        print "No zones found"
+        return
     try:
         if argv[1] == "next": #play next file
             play_next()
+        elif argv[1] == "prev":
+            play_previous()
         elif argv[1] == "list":
             printZones()
+        elif argv[1] == "status":
+            getStatus()
         elif argv[1] == "pause":
             pause()
+        elif argv[1] == "play":
+            play()
         else:
-            print "Run with commands next, list, or pause"
+            print "Run with commands next, prev, list, status, play or pause"
     except:
         print "Failed"
 
 def pause():
-    for i in range(len(listOfZones)):
-        listOfZones[i].pause()
+    try:
+        for i in range(len(listOfZones)):
+            listOfZones[i].pause()
+        return 1
+    except:
+        print "failed"
+        return 0
+    print "Skipped current song on all zones"
+
+def play():
+    try:
+        for i in range(len(listOfZones)):
+            listOfZones[i].play()
+        return 1
+    except:
+        print "failed"
+        return 0
+    print "Skipped current song on all zones"
 
 def play_next():
-    if len(listOfZones) == 0:
-        print "No zones found"
-        return
-    else:
-        try:
-            for i in range(len(listOfZones)):
-                listOfZones[i].next()
-        except:
-            print "failed"
+    try:
+        for i in range(len(listOfZones)):
+            listOfZones[i].next()
+        return 1
+    except:
+        print "failed"
+        return 0
+    print "Skipped current song on all zones"
+
+def play_previous():
+    try:
+        for i in range(len(listOfZones)):
+            listOfZones[i].previous()
+        return 1
+    except:
+        print "failed"
+        return 0
+    print "Skipped current song on all zones"
+
+def getStatus():
+    try:
+        for i in range(len(listOfZones)):
+            print listOfZones[i].get_current_transport_info()['current_transport_state']
+        return 1
+    except:
+        print "failed"
+        return 0
     print "Skipped current song on all zones"
 
 
