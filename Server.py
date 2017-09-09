@@ -18,7 +18,7 @@ def main(argv=sys.argv):
         elif argv[1] == "list":
             printZones()
         elif argv[1] == "pause":
-
+            pause()
     except:
         print "Run with commands next, list, or pause"
 
