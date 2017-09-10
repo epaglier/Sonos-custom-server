@@ -9,12 +9,19 @@ class S(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        self._set_headers()
-        s = getStatus()
+        s = SonosControl.getStatus()
         if s == "PLAYING":
-            pause()
+            SonosControl.pause()
+            self.send_response(808)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            print "paused"
         else:
-            play()
+            SonosControl.play()
+            self.send_response(505)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            print "playing"
         self.wfile.write("<html><body><h1>hi!</h1></body></html>")
 
     def do_HEAD(self):
