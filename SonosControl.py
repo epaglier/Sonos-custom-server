@@ -83,7 +83,7 @@ def getStatus():
     try:
         for i in range(len(listOfZones)):
             print listOfZones[i].get_current_transport_info()['current_transport_state']
-        return 1
+        return listOfZones[0].get_current_transport_info()['current_transport_state']
     except:
         print "failed"
         return 0
