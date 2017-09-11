@@ -34,35 +34,70 @@ class S(BaseHTTPRequestHandler):
         content_length = request_headers.getheaders('content-length')
         length = int(content_length[0]) if content_length else 0
         text = request_headers.getheaders('Data')
-        print (text)
-        if text[0]=='Play':
-            SonosControl.play()
-            print "playing"
-        elif text[0]=='Pause':
-            SonosControl.pause()
-            print "paused"
-        elif text[0]=='Volume+':
-            SonosControl.volumeUp()
-        elif text[0]=='Volume-':
-            SonosControl.volumeDown()
-        elif text[0]=='Next':
-            SonosControl.play_next()
-        elif text[0]=='Prev':
-            SonosControl.play_previous()
-        elif text[0]=='IsPlaying':
-            self.send_response(200 + SonosControl.isPlaying())
+        locate = request_headers.getheaders('Location')
+        if text[0]=='Sync':
+            SonosControl.setZoneVolumeEqual()
+            #ADD Play same song
+        if (locate == "ALL"):
+            print (text)
+            if text[0]=='Play':
+                SonosControl.play()
+                print "playing"
+            elif text[0]=='Pause':
+                SonosControl.pause()
+                print "paused"
+            elif text[0]=='Volume+':
+                SonosControl.volumeUp()
+            elif text[0]=='Volume-':
+                SonosControl.volumeDown()
+            elif text[0]=='Next':
+                SonosControl.play_next()
+            elif text[0]=='Prev':
+                SonosControl.play_previous()
+            elif text[0]=='IsPlaying':
+                self.send_response(200 + SonosControl.isPlaying())
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                return
+            else:
+                print "Not programmed"
+                self.send_response(404)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                return
+            self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            return
         else:
-            print "Not programmed"
-            self.send_response(404)
+            print (text)
+            if text[0]=='Play':
+                SonosControl.play(locate)
+                print "playing"
+            elif text[0]=='Pause':
+                SonosControl.pause(locate)
+                print "paused"
+            elif text[0]=='Volume+':
+                SonosControl.volumeUp(locate)
+            elif text[0]=='Volume-':
+                SonosControl.volumeDown(locate)
+            elif text[0]=='Next':
+                SonosControl.play_next(locate)
+            elif text[0]=='Prev':
+                SonosControl.play_previous(locate)
+            elif text[0]=='IsPlaying':
+                self.send_response(200 + SonosControl.isPlaying(locate))
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                return
+            else:
+                print "Not programmed"
+                self.send_response(404)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                return
+            self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            return
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
 
 def run(server_class=HTTPServer, handler_class=S, port=8000):
     server_address = ('', port)
