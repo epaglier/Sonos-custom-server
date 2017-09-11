@@ -5,6 +5,9 @@ print "started"
 
 listOfZones = list(soco.discover())
 
+for i in range(len(listOfZones)):
+    print listOfZones[i].player_name
+
 def printZones():
     try:
         for i in range(len(listOfZones)):
@@ -88,6 +91,45 @@ def getStatus():
         print "failed"
         return 0
     print "Skipped current song on all zones"
+
+def setZoneVolumeEqual():
+    try:
+        for i in range(1,len(listOfZones)):
+            listOfZones[i].volume = listOfZones[i-1].volume
+    except:
+        print "failed"
+        return 0
+    print "All zones volume equal"
+    return 1
+
+
+def volumeUp():
+    setZoneVolumeEqual()
+    try:
+        for i in range(len(listOfZones)):
+            listOfZones[i].volume = listOfZones[i].volume + 5
+        print "Volume++"
+        return 1
+    except:
+        print "failed"
+        return 0
+
+def volumeDown():
+    setZoneVolumeEqual()
+    try:
+        for i in range(len(listOfZones)):
+            listOfZones[i].volume = listOfZones[i].volume - 5
+        print "Volume--"
+        return 1
+    except:
+        print "failed"
+        return 0
+
+def isPlaying():
+    if getStatus() == 'PLAYING':
+        return 1
+    else:
+        return 0
 
 
 if __name__=="__main__":
