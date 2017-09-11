@@ -42,7 +42,7 @@ def main(argv=sys.argv):
     except:
         print "Failed"
 
-def pause():
+def pauseAll():
     try:
         for i in range(len(listOfZones)):
             listOfZones[i].pause()
@@ -52,7 +52,7 @@ def pause():
         return 0
     print "Skipped current song on all zones"
 
-def play():
+def playAll():
     try:
         for i in range(len(listOfZones)):
             listOfZones[i].play()
@@ -62,7 +62,7 @@ def play():
         return 0
     print "Skipped current song on all zones"
 
-def play_next():
+def play_nextAll():
     try:
         for i in range(len(listOfZones)):
             listOfZones[i].next()
@@ -72,7 +72,7 @@ def play_next():
         return 0
     print "Skipped current song on all zones"
 
-def play_previous():
+def play_previousAll():
     try:
         for i in range(len(listOfZones)):
             listOfZones[i].previous()
@@ -103,7 +103,7 @@ def setZoneVolumeEqual():
     return 1
 
 
-def volumeUp():
+def volumeUpAll():
     setZoneVolumeEqual()
     try:
         for i in range(len(listOfZones)):
@@ -114,7 +114,7 @@ def volumeUp():
         print "failed"
         return 0
 
-def volumeDown():
+def volumeDownAll():
     setZoneVolumeEqual()
     try:
         for i in range(len(listOfZones)):
@@ -125,7 +125,7 @@ def volumeDown():
         print "failed"
         return 0
 
-def isPlaying():
+def isPlayingAll():
     if getStatus() == 'PLAYING':
         return 1
     else:

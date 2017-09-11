@@ -35,27 +35,28 @@ class S(BaseHTTPRequestHandler):
         length = int(content_length[0]) if content_length else 0
         text = request_headers.getheaders('Data')
         locate = request_headers.getheaders('Location')
+        print locate
         if text[0]=='Sync':
             SonosControl.setZoneVolumeEqual()
             #ADD Play same song
-        if (locate == "ALL"):
+        if locate[0] =="ALL":
             print (text)
             if text[0]=='Play':
-                SonosControl.play()
+                SonosControl.playAll()
                 print "playing"
             elif text[0]=='Pause':
-                SonosControl.pause()
+                SonosControl.pauseAll()
                 print "paused"
             elif text[0]=='Volume+':
-                SonosControl.volumeUp()
+                SonosControl.volumeUpAll()
             elif text[0]=='Volume-':
-                SonosControl.volumeDown()
+                SonosControl.volumeDownAll()
             elif text[0]=='Next':
-                SonosControl.play_next()
+                SonosControl.play_nextAll()
             elif text[0]=='Prev':
-                SonosControl.play_previous()
+                SonosControl.play_previousAll()
             elif text[0]=='IsPlaying':
-                self.send_response(200 + SonosControl.isPlaying())
+                self.send_response(200 + SonosControl.isPlayingAll())
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 return
@@ -71,21 +72,21 @@ class S(BaseHTTPRequestHandler):
         else:
             print (text)
             if text[0]=='Play':
-                SonosControl.play(locate)
-                print "playing"
+                SonosControl.play(locate[0])
+                print "playing " + locate[0]
             elif text[0]=='Pause':
-                SonosControl.pause(locate)
+                SonosControl.pause(locate[0])
                 print "paused"
             elif text[0]=='Volume+':
-                SonosControl.volumeUp(locate)
+                SonosControl.volumeUp(locate[0])
             elif text[0]=='Volume-':
-                SonosControl.volumeDown(locate)
+                SonosControl.volumeDown(locate[0])
             elif text[0]=='Next':
-                SonosControl.play_next(locate)
+                SonosControl.play_next(locate[0])
             elif text[0]=='Prev':
-                SonosControl.play_previous(locate)
+                SonosControl.play_previous(locate[0])
             elif text[0]=='IsPlaying':
-                self.send_response(200 + SonosControl.isPlaying(locate))
+                self.send_response(200 + SonosControl.isPlaying(locate[0]))
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
                 return
