@@ -1,6 +1,7 @@
 Welcome! This app is a work in progress server that will allow you to interact with all of your music and Sonos devices. You are able to use http requests to adjust your music and even integrate with ifttt.
 
 To run the server just navigate to the folder containing the python files and run
+
 python HTTP.py [Desired port number]
 
 How to use http push's
