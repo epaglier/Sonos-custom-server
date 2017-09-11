@@ -82,7 +82,7 @@ def play_previousAll():
         return 0
     print "Skipped current song on all zones"
 
-def getStatus():
+def getStatusAll():
     try:
         #for i in range(len(listOfZones)):
             #print listOfZones[i].get_current_transport_info()['current_transport_state']
@@ -126,7 +126,7 @@ def volumeDownAll():
         return 0
 
 def isPlayingAll():
-    if getStatus() == 'PLAYING':
+    if getStatusAll() == 'PLAYING':
         return 1
     else:
         return 0
@@ -219,8 +219,7 @@ def isPlaying(name):
         if (listOfZones[i].player_name == name):
             if listOfZones[i].get_current_transport_info()['current_transport_state'] == 'PLAYING':
                 return 1
-        else:
-            return 0
+    return 0
 
 if __name__=="__main__":
     main()
