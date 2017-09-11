@@ -132,5 +132,95 @@ def isPlaying():
         return 0
 
 
+#Individual players
+def pause(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                listOfZones[i].pause()
+                return 1
+    except:
+        print "failed"
+        return 0
+    
+    print "failed"
+    return 0
+
+def play(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                listOfZones[i].play()
+                return 1
+    except:
+        print "failed"
+        return 0
+    print "failed"
+    return 0
+
+def play_next(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                listOfZones[i].next()
+                return 1
+    except:
+        print "failed"
+        return 0
+    return 0
+
+def play_previous(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                listOfZones[i].previous()
+                return 1
+    except:
+        print "failed"
+        return 0
+    return 0
+
+def getStatus(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                return listOfZones[i].get_current_transport_info()['current_transport_state']
+    except:
+        print "failed"
+        return 0
+    return 0
+
+def volumeUp(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                listOfZones[i].volume = listOfZones[i].volume + 5
+                print "Volume++"
+                return 1
+    except:
+        print "failed"
+        return 0
+    return 0
+
+def volumeDown(name):
+    try:
+        for i in range(len(listOfZones)):
+            if (listOfZones[i].player_name == name):
+                listOfZones[i].volume = listOfZones[i].volume - 5
+                print "Volume--"
+                return 1
+    except:
+        print "failed"
+        return 0
+    return 0
+
+def isPlaying(name):
+    for i in range(len(listOfZones)):
+        if (listOfZones[i].player_name == name):
+            if listOfZones[i].get_current_transport_info()['current_transport_state'] == 'PLAYING':
+                return 1
+        else:
+            return 0
+
 if __name__=="__main__":
     main()
